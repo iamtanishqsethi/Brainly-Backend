@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config()
  const connectDB=async ()=>{
-    await mongoose.connect("mongodb+srv://tanishqz:tanishq%40123z@cluster.9fvtqy6.mongodb.net/brainly")
+    await mongoose.connect(process.env.MONGO_URI!)
 }
 
 export default connectDB
