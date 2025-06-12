@@ -1,12 +1,14 @@
 import express from "express"
 import connectDB from "./config/database"
 import Auth from "./routes/Auth"
+import Content from "./routes/Content"
 const app=express()
 
 app.use(express.json())
 require('dotenv').config();
 
 app.use("/api/auth/",Auth)
+app.use("/api/content/",Content)
 
 
 connectDB().then(()=>{

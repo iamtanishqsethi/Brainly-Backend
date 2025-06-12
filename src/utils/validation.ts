@@ -1,5 +1,6 @@
 import validator from "validator"
 import { Request } from "express"
+import User from "../models/User"
 
 export const validateSignUpData=(req:Request)=>{
     const {firstName,userName,password}=req.body
@@ -23,4 +24,20 @@ export const validateSignUpData=(req:Request)=>{
         minSymbols:1
     }))
     throw new Error("Enter strong password")
+}
+
+export const validateContentBody=async(req:Request)=>{
+    
+    const contentTypes=["textBlock","images","YoutubeVideos","links","tweets","codeSnippets"]
+    
+    if(req.body.title!==undefined && req.body.title.length===0){
+        throw new Error("Title cannot be empty")
+    }
+    else if(req.body.description!==undefined && req.body.description.length===0){
+        throw new Error("Description cannot be empty")
+    }
+    else if(req.body.contentType && !contentTypes.includes(req.body.contentType)){
+        throw new Error ("Enter valid content type")
+    }
+
 }

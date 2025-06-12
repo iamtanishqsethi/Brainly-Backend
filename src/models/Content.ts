@@ -22,7 +22,7 @@ const contentSchema=new mongoose.Schema({
         required:true,
         enum:contentTypes
     },
-    tags:{
+    tag:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Tag'
     }
