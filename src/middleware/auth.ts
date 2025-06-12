@@ -16,16 +16,16 @@ interface JwtPayload {
   [key: string]: any;
 }
 
-const userAuth = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const userAuth = async (req: Request, res: Response, next: NextFunction)=> {
   try {
-    const cookies = req.cookies;
-    const { token } = cookies;
+    const cookies=req.cookies
+    const { token } = cookies
     
     if (!token) {
       throw new Error("Token not found");
     }
     
-    const decodedValue = jwt.verify(token, process.env.JWT_KEY as string) as JwtPayload;
+    const decodedValue = jwt.verify(token, process.env.JWT_KEY!) as {_id:string};
     
     const user = await User.findById(decodedValue._id);
     
@@ -35,8 +35,8 @@ const userAuth = async (req: Request, res: Response, next: NextFunction): Promis
     
     req.user = user;
     next();
-  } catch (err) {
-    res.status(404).send(err);
+  } catch (err:any) {
+    res.status(404).send(err.message);
   }
 };
 

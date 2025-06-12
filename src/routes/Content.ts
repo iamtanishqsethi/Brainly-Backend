@@ -8,6 +8,30 @@ const router=express.Router()
 
 const contentTypes=["textBlock","images","YoutubeVideos","links","tweets","codeSnippets"]
 
+
+router.get('/all',userAuth,async(req,res)=>{
+
+    try{
+        const user=req.user
+        res.send(user)
+        
+        if(!user) {
+            throw new Error("User not found")
+        }
+        const userId=req.user._id
+        const allContent=await Content.find({userId}).populate('tag')
+        
+        res.status(200).json({
+            message:"All content Fetched Successfully",
+            data:allContent
+        })
+    }
+    catch(error){
+        res.status(400).send(error)
+    }
+
+})
+
 router.post('/new',userAuth,async(req,res)=>{
     try{
         const userId=req.user._id
@@ -148,24 +172,6 @@ router.delete('/delete/:contentId',userAuth,async(req,res)=>{
     }
 })
 
-router.get('/all',userAuth,async(req,res)=>{
 
-    try{
-        const user=req.user
-        if(!user) {
-            throw new Error("User not found")
-        }
-        const userId=req.user._id
-        const allContent=await Content.find({userId}).populate('tag')
-        res.status(200).json({
-            message:"All content Fetched Successfully",
-            data:allContent
-        })
-    }
-    catch(error){
-        res.status(400).send(error)
-    }
-
-})
 
 export default router

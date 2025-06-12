@@ -33,7 +33,7 @@ router.post("/signUp",async(req,res)=>{
     }
 })
 
-router.post("/sinIn",async(req,res)=>{
+router.post("/signIn",async(req,res)=>{
     try{
         const {userName,password}=req.body
         if(!userName || !password){
