@@ -26,8 +26,8 @@ router.get('/all',userAuth,async(req,res)=>{
             data:allContent
         })
     }
-    catch(error){
-        res.status(400).send(error)
+    catch(error:any){
+        res.status(400).send(error.message)
     }
 
 })
@@ -72,8 +72,8 @@ router.post('/new',userAuth,async(req,res)=>{
         })
         
     }
-    catch(error){
-        res.status(400).send(error)
+    catch(error:any){
+        res.status(400).send(error.message)
     }
     
 })
@@ -138,8 +138,8 @@ router.patch('/edit/:contentId',userAuth,async(req,res)=>{
         })
         
     }
-    catch(error){
-        res.status(400).send(error)
+    catch(error:any){
+        res.status(400).send(error.message)
     }
 
 })
@@ -167,8 +167,8 @@ router.delete('/delete/:contentId',userAuth,async(req,res)=>{
             content: content
         })
     }
-    catch(error){
-        res.status(400).send(error)
+   catch(error:any){
+        res.status(400).send(error.message)
     }
 })
 
